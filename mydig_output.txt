@@ -1,24 +1,25 @@
-Name: www.cnn.com
-Type: NS
-Response records: ['RdataType.CNAME cnn-tls.map.fastly.net.']
-Query time: 101 ms
-Name: cnn-tls.map.fastly.net
-Type: NS
-Response records: []
-Query time: 98 ms
 Name: google.com
 Type: NS
-Response records: ['RdataType.NS ns2.google.com.', 'RdataType.NS ns1.google.com.', 'RdataType.NS ns3.google.com.', 'RdataType.NS ns4.google.com.']
-Query time: 117 ms
+Answer records: ['RdataType.NS ns3.google.com.', 'RdataType.NS ns1.google.com.', 'RdataType.NS ns4.google.com.', 'RdataType.NS ns2.google.com.']
+Authority records: []
+Query time: 115 ms
 Name: facebook.com
 Type: MX
-Response records: ['RdataType.MX smtpin.vvv.facebook.com.']
-Query time: 97 ms
+Answer records: ['RdataType.MX smtpin.vvv.facebook.com.']
+Authority records: []
+Query time: 116 ms
 Name: www.facebook.com
 Type: NS
-Response records: ['RdataType.CNAME star-mini.c10r.facebook.com.']
-Query time: 87 ms
+Answer records: ['RdataType.CNAME star-mini.c10r.facebook.com.']
+Authority records: []
+Query time: 102 ms
 Name: facebook.com
 Type: NS
-Response records: ['RdataType.NS b.ns.facebook.com.', 'RdataType.NS a.ns.facebook.com.', 'RdataType.NS c.ns.facebook.com.', 'RdataType.NS d.ns.facebook.com.']
-Query time: 91 ms
+Answer records: ['RdataType.NS b.ns.facebook.com.', 'RdataType.NS a.ns.facebook.com.', 'RdataType.NS c.ns.facebook.com.', 'RdataType.NS d.ns.facebook.com.']
+Authority records: []
+Query time: 1171 ms
+Name: www.cnn.com
+Type: A
+Answer records: ['RdataType.CNAME cnn-tls.map.fastly.net.', 'RdataType.A 199.232.39.5']
+Authority records: ['RdataType.NS ns1.fastly.net.', 'RdataType.NS ns2.fastly.net.', 'RdataType.NS ns3.fastly.net.', 'RdataType.NS ns4.fastly.net.']
+Query time: 222 ms

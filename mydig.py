@@ -13,18 +13,22 @@ ROOT_SERVER_IPV4S_FILE_NAME = "./root_server_ipv4s.txt"
 
 def resolve_dns(request: Request) -> Response:
     start_time = time.time()
-    dns_records = __resolve_dns__(request)
+    answer_records, authority_records = __resolve_dns__(request)
 
     if request.type == 'A':
-        while len(dns_records) > 0 and dns.rdatatype.CNAME == dns_records[-1][0]:
-            new_request = Request(dns_records[-1][1], request.type)
-            dns_records += __resolve_dns__(new_request)
+        while len(answer_records) > 0 and dns.rdatatype.CNAME == answer_records[-1][0]:
+            new_request = Request(answer_records[-1][1], request.type)
+            new_answer_records, new_authority_records = __resolve_dns__(new_request)
+            answer_records += new_answer_records
+            authority_records = new_authority_records
 
     end_time = time.time()
-    return __build_response__(request, dns_records, int((end_time - start_time)*1000))
+    return __build_response__(request, answer_records, authority_records, int((end_time - start_time)*1000))
 
 
-def __resolve_dns__(request: Request) -> List[Tuple[dns.rdatatype.RdataType, str]]:
+def __resolve_dns__(request: Request) -> Tuple[
+    List[Tuple[dns.rdatatype.RdataType, str]],
+    List[Tuple[dns.rdatatype.RdataType, str]]]:
     request_message = __generate_request_message__(request)
 
     root_server_ips = []
@@ -33,26 +37,15 @@ def __resolve_dns__(request: Request) -> List[Tuple[dns.rdatatype.RdataType, str
 
     response_message = __resolve_dns_from_servers__(request_message, root_server_ips)
 
-    while response_message and len(response_message.answer) == 0:
+    while response_message and len(response_message.answer) == 0 and len(response_message.additional) != 0:
         name_server_ips = __parse_name_server_ips_from_response__(response_message)
         response_message = __resolve_dns_from_servers__(request_message, name_server_ips)
 
-    results = []
-
     # todo better handling?
     if response_message is None:
-        return results
+        return [], []
 
-    for rrset in response_message.answer:
-        for item in rrset.items:
-            if item.rdtype == dns.rdatatype.A:
-                results.append((item.rdtype, item.address))
-            elif item.rdtype == dns.rdatatype.MX:
-                results.append((item.rdtype, item.exchange.to_text()))
-            elif item.rdtype == dns.rdatatype.CNAME or item.rdtype == dns.rdatatype.NS:
-                results.append((item.rdtype, item.target.to_text()))
-
-    return results
+    return __parse_dns_records_from_section__(response_message.answer), __parse_dns_records_from_section__(response_message.authority)
 
 
 def __resolve_dns_from_servers__(request_message: Message, dns_server_ips: List[str]) -> Optional[Message]:
@@ -103,12 +96,32 @@ def __parse_name_server_ips_from_response__(response_message: Message) -> List[s
     return name_server_ips
 
 
-def __build_response__(request: Request, dns_records: List[Tuple[dns.rdatatype.RdataType, str]], time_elapsed_ms: int) -> Response:
+def __parse_dns_records_from_section__(section) -> List[Tuple[dns.rdatatype.RdataType, str]]:
+    results = []
+
+    for rrset in section:
+        for item in rrset.items:
+            if item.rdtype == dns.rdatatype.A:
+                results.append((item.rdtype, item.address))
+            elif item.rdtype == dns.rdatatype.MX:
+                results.append((item.rdtype, item.exchange.to_text()))
+            elif item.rdtype == dns.rdatatype.CNAME or item.rdtype == dns.rdatatype.NS:
+                results.append((item.rdtype, item.target.to_text()))
+            elif item.rdtype == dns.rdatatype.SOA:
+                pass
+
+    return results
+
+
+def __build_response__(request: Request, answer_records: List[Tuple[dns.rdatatype.RdataType, str]], authority_records: List[Tuple[dns.rdatatype.RdataType, str]], time_elapsed_ms: int) -> Response:
     return Response(
         name = request.name,
         type = request.type,
-        response_records=[
-            ResponseRecord(dns_record[0], dns_record[1]) for dns_record in dns_records
+        answer_records=[
+            ResponseRecord(dns_record[0], dns_record[1]) for dns_record in answer_records
+        ],
+        authority_records=[
+            ResponseRecord(dns_record[0], dns_record[1]) for dns_record in authority_records
         ],
         query_time=time_elapsed_ms,
         when=str(datetime.datetime.now().timestamp()),
