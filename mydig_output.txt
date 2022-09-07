@@ -1,0 +1,24 @@
+Name: www.cnn.com
+Type: NS
+Response records: ['RdataType.CNAME cnn-tls.map.fastly.net.']
+Query time: 101 ms
+Name: cnn-tls.map.fastly.net
+Type: NS
+Response records: []
+Query time: 98 ms
+Name: google.com
+Type: NS
+Response records: ['RdataType.NS ns2.google.com.', 'RdataType.NS ns1.google.com.', 'RdataType.NS ns3.google.com.', 'RdataType.NS ns4.google.com.']
+Query time: 117 ms
+Name: facebook.com
+Type: MX
+Response records: ['RdataType.MX smtpin.vvv.facebook.com.']
+Query time: 97 ms
+Name: www.facebook.com
+Type: NS
+Response records: ['RdataType.CNAME star-mini.c10r.facebook.com.']
+Query time: 87 ms
+Name: facebook.com
+Type: NS
+Response records: ['RdataType.NS b.ns.facebook.com.', 'RdataType.NS a.ns.facebook.com.', 'RdataType.NS c.ns.facebook.com.', 'RdataType.NS d.ns.facebook.com.']
+Query time: 91 ms

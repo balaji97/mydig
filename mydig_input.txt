@@ -1,1 +1,6 @@
-www.cnn.com A
+www.cnn.com NS
+cnn-tls.map.fastly.net NS
+google.com NS
+facebook.com MX
+www.facebook.com NS
+facebook.com NS
