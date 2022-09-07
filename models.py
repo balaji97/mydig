@@ -46,9 +46,10 @@ class Response:
         self.msg_size_rcvd = msg_size_rcvd
 
     def __str__(self):
-        return "Name: " + self.name + "\nType: " + self.type \
-               + "\nAnswer records: " + \
+        return "Question section - " + "Name: " + self.name + " Type: " + self.type \
+               + "\nAnswer section - " + \
                str([str(response_record) for response_record in self.answer_records]) + \
-               "\nAuthority records: " + \
+               "\nAuthority section - " + \
                str([str(response_record) for response_record in self.authority_records]) + \
-               "\nQuery time: " + str(self.query_time) + " ms\n"
+               "\nMetadata - Query time: " + str(self.query_time) + "ms When: " + self.when + \
+               " Msg size rcvd: " + str(self.msg_size_rcvd) + "\n"

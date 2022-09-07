@@ -1,25 +1,4 @@
-Name: google.com
-Type: NS
-Answer records: ['RdataType.NS ns3.google.com.', 'RdataType.NS ns1.google.com.', 'RdataType.NS ns4.google.com.', 'RdataType.NS ns2.google.com.']
-Authority records: []
-Query time: 115 ms
-Name: facebook.com
-Type: MX
-Answer records: ['RdataType.MX smtpin.vvv.facebook.com.']
-Authority records: []
-Query time: 116 ms
-Name: www.facebook.com
-Type: NS
-Answer records: ['RdataType.CNAME star-mini.c10r.facebook.com.']
-Authority records: []
-Query time: 102 ms
-Name: facebook.com
-Type: NS
-Answer records: ['RdataType.NS b.ns.facebook.com.', 'RdataType.NS a.ns.facebook.com.', 'RdataType.NS c.ns.facebook.com.', 'RdataType.NS d.ns.facebook.com.']
-Authority records: []
-Query time: 1171 ms
-Name: www.cnn.com
-Type: A
-Answer records: ['RdataType.CNAME cnn-tls.map.fastly.net.', 'RdataType.A 199.232.39.5']
-Authority records: ['RdataType.NS ns1.fastly.net.', 'RdataType.NS ns2.fastly.net.', 'RdataType.NS ns3.fastly.net.', 'RdataType.NS ns4.fastly.net.']
-Query time: 222 ms
+Question section - Name: cnn.com Type: A
+Answer section - ['RdataType.A 151.101.131.5', 'RdataType.A 151.101.3.5', 'RdataType.A 151.101.67.5', 'RdataType.A 151.101.195.5']
+Authority section - ['RdataType.NS ns-1086.awsdns-07.org.', 'RdataType.NS ns-1630.awsdns-11.co.uk.', 'RdataType.NS ns-47.awsdns-05.com.', 'RdataType.NS ns-576.awsdns-08.net.']
+Metadata - Query time: 111ms When: 2022-09-07 17:50:51.927470Msg size rcvd: 48

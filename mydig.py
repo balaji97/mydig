@@ -1,4 +1,5 @@
 import datetime
+import sys
 import time
 from typing import Optional, List, Tuple
 
@@ -13,22 +14,25 @@ ROOT_SERVER_IPV4S_FILE_NAME = "./root_server_ipv4s.txt"
 
 def resolve_dns(request: Request) -> Response:
     start_time = time.time()
-    answer_records, authority_records = __resolve_dns__(request)
+    answer_records, authority_records, msg_size_rcvd = __resolve_dns__(request)
 
     if request.type == 'A':
         while len(answer_records) > 0 and dns.rdatatype.CNAME == answer_records[-1][0]:
             new_request = Request(answer_records[-1][1], request.type)
-            new_answer_records, new_authority_records = __resolve_dns__(new_request)
+            new_answer_records, new_authority_records, msg_size_rcvd = __resolve_dns__(new_request)
             answer_records += new_answer_records
             authority_records = new_authority_records
 
     end_time = time.time()
-    return __build_response__(request, answer_records, authority_records, int((end_time - start_time)*1000))
+    return __build_response__(
+        request, answer_records, authority_records, int((end_time - start_time) * 1000), msg_size_rcvd)
 
 
 def __resolve_dns__(request: Request) -> Tuple[
     List[Tuple[dns.rdatatype.RdataType, str]],
-    List[Tuple[dns.rdatatype.RdataType, str]]]:
+    List[Tuple[dns.rdatatype.RdataType, str]],
+    int
+]:
     request_message = __generate_request_message__(request)
 
     root_server_ips = []
@@ -43,9 +47,10 @@ def __resolve_dns__(request: Request) -> Tuple[
 
     # todo better handling?
     if response_message is None:
-        return [], []
+        return [], [], 0
 
-    return __parse_dns_records_from_section__(response_message.answer), __parse_dns_records_from_section__(response_message.authority)
+    return __parse_dns_records_from_section__(response_message.answer), __parse_dns_records_from_section__(
+        response_message.authority), sys.getsizeof(response_message)
 
 
 def __resolve_dns_from_servers__(request_message: Message, dns_server_ips: List[str]) -> Optional[Message]:
@@ -113,10 +118,12 @@ def __parse_dns_records_from_section__(section) -> List[Tuple[dns.rdatatype.Rdat
     return results
 
 
-def __build_response__(request: Request, answer_records: List[Tuple[dns.rdatatype.RdataType, str]], authority_records: List[Tuple[dns.rdatatype.RdataType, str]], time_elapsed_ms: int) -> Response:
+def __build_response__(request: Request, answer_records: List[Tuple[dns.rdatatype.RdataType, str]],
+                       authority_records: List[Tuple[dns.rdatatype.RdataType, str]], time_elapsed_ms: int,
+                       msg_size_rcvd: int) -> Response:
     return Response(
-        name = request.name,
-        type = request.type,
+        name=request.name,
+        type=request.type,
         answer_records=[
             ResponseRecord(dns_record[0], dns_record[1]) for dns_record in answer_records
         ],
@@ -124,6 +131,6 @@ def __build_response__(request: Request, answer_records: List[Tuple[dns.rdatatyp
             ResponseRecord(dns_record[0], dns_record[1]) for dns_record in authority_records
         ],
         query_time=time_elapsed_ms,
-        when=str(datetime.datetime.now().timestamp()),
-        msg_size_rcvd=0
+        when=str(datetime.datetime.now()),
+        msg_size_rcvd=msg_size_rcvd
     )

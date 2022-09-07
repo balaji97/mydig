@@ -4,7 +4,6 @@ from models import Request
 INPUT_FILENAME = "./mydig_input.txt"
 OUTPUT_FILENAME = "./mydig_output.txt"
 
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     output_lines = []
 
@@ -23,5 +22,3 @@ if __name__ == '__main__':
     with open(OUTPUT_FILENAME, 'w') as output_file:
         for output_line in output_lines:
             output_file.write(output_line)
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/

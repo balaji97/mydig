@@ -1,5 +1,1 @@
-google.com NS
-facebook.com MX
-www.facebook.com NS
-facebook.com NS
-www.cnn.com A
+cnn.com A
