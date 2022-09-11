@@ -1,32 +1,20 @@
-Question section - Name: www.google.com Type: MX
-Answer section - []
-Authority section - ['RdataType.SOA ns1.google.com. dns-admin.google.com.']
-Metadata - Query time: 79ms When: 2022-09-11 17:52:24.268310 Msg size rcvd: 0
+Question section - Name: www.microsoftonline.com Type: A
+Answer section - ['RdataType.CNAME microsoftonline.com.']
+Authority section - ['RdataType.SOA ch0mgt0101dc001.prdmgt01.prod.exchangelabs.com. msnhst.microsoft.com.', 'RdataType.SOA ch0mgt0101dc001.prdmgt01.prod.exchangelabs.com. msnhst.microsoft.com.']
+Metadata - Query time: 140ms When: 2022-09-11 18:13:58.142390 Msg size rcvd: 0
+Question section - Name: cnn.com Type: A
+Answer section - ['RdataType.A 151.101.195.5', 'RdataType.A 151.101.131.5', 'RdataType.A 151.101.3.5', 'RdataType.A 151.101.67.5']
+Authority section - ['RdataType.NS ns-1086.awsdns-07.org.', 'RdataType.NS ns-1630.awsdns-11.co.uk.', 'RdataType.NS ns-47.awsdns-05.com.', 'RdataType.NS ns-576.awsdns-08.net.']
+Metadata - Query time: 107ms When: 2022-09-11 18:13:58.249534 Msg size rcvd: 0
+Question section - Name: www.cnn.com Type: A
+Answer section - ['RdataType.CNAME cnn-tls.map.fastly.net.', 'RdataType.A 199.232.39.5']
+Authority section - ['RdataType.NS ns-1086.awsdns-07.org.', 'RdataType.NS ns-1630.awsdns-11.co.uk.', 'RdataType.NS ns-47.awsdns-05.com.', 'RdataType.NS ns-576.awsdns-08.net.', 'RdataType.NS ns1.fastly.net.', 'RdataType.NS ns2.fastly.net.', 'RdataType.NS ns3.fastly.net.', 'RdataType.NS ns4.fastly.net.']
+Metadata - Query time: 317ms When: 2022-09-11 18:13:58.567361 Msg size rcvd: 0
 Question section - Name: www.google.com Type: NS
 Answer section - []
 Authority section - ['RdataType.SOA ns1.google.com. dns-admin.google.com.']
-Metadata - Query time: 66ms When: 2022-09-11 17:52:24.335229 Msg size rcvd: 0
-Question section - Name: qq.com Type: NS
-Answer section - ['RdataType.NS ns3.qq.com.', 'RdataType.NS ns4.qq.com.', 'RdataType.NS ns1.qq.com.', 'RdataType.NS ns2.qq.com.']
-Authority section - ['RdataType.NS ns2.qq.com.', 'RdataType.NS ns3.qq.com.', 'RdataType.NS ns4.qq.com.', 'RdataType.NS ns1.qq.com.']
-Metadata - Query time: 431ms When: 2022-09-11 17:52:24.766800 Msg size rcvd: 0
-Question section - Name: qq.com Type: MX
-Answer section - ['RdataType.MX mx1.qq.com.', 'RdataType.MX mx3.qq.com.', 'RdataType.MX mx2.qq.com.']
-Authority section - ['RdataType.NS ns4.qq.com.', 'RdataType.NS ns1.qq.com.', 'RdataType.NS ns2.qq.com.', 'RdataType.NS ns3.qq.com.']
-Metadata - Query time: 373ms When: 2022-09-11 17:52:25.140727 Msg size rcvd: 0
-Question section - Name: qq.com Type: A
-Answer section - ['RdataType.A 183.3.226.35', 'RdataType.A 203.205.254.157', 'RdataType.A 123.151.137.18', 'RdataType.A 61.129.7.47']
-Authority section - ['RdataType.NS ns3.qq.com.', 'RdataType.NS ns4.qq.com.', 'RdataType.NS ns1.qq.com.', 'RdataType.NS ns2.qq.com.']
-Metadata - Query time: 505ms When: 2022-09-11 17:52:25.646732 Msg size rcvd: 0
-Question section - Name: www.qq.com Type: A
-Answer section - ['RdataType.CNAME news.qq.com.edgekey.net.', 'RdataType.CNAME e6156.dscf.akamaiedge.net.', 'RdataType.A 23.78.0.215']
-Authority section - []
-Metadata - Query time: 812ms When: 2022-09-11 17:52:26.459693 Msg size rcvd: 0
-Question section - Name: www.qq.com Type: NS
-Answer section - ['RdataType.NS ns-os1.qq.com.', 'RdataType.NS ns-cmn1.qq.com.', 'RdataType.NS ns-tel1.qq.com.', 'RdataType.NS ns-cnc1.qq.com.']
-Authority section - ['RdataType.NS ns1.qq.com.', 'RdataType.NS ns2.qq.com.', 'RdataType.NS ns3.qq.com.', 'RdataType.NS ns4.qq.com.']
-Metadata - Query time: 447ms When: 2022-09-11 17:52:26.907653 Msg size rcvd: 0
-Question section - Name: www.qq.com Type: MX
+Metadata - Query time: 98ms When: 2022-09-11 18:13:58.665964 Msg size rcvd: 0
+Question section - Name: www.google.com Type: MX
 Answer section - []
-Authority section - ['RdataType.SOA ns-tel1.qq.com. webmaster.qq.com.']
-Metadata - Query time: 788ms When: 2022-09-11 17:52:27.696590 Msg size rcvd: 0
+Authority section - ['RdataType.SOA ns1.google.com. dns-admin.google.com.']
+Metadata - Query time: 102ms When: 2022-09-11 18:13:58.768536 Msg size rcvd: 0

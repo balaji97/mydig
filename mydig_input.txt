@@ -1,8 +1,1 @@
-www.google.com MX
-www.google.com NS
-qq.com NS
-qq.com MX
-qq.com A
-www.qq.com A
-www.qq.com NS
-www.qq.com MX
+www.microsoftonline.com A

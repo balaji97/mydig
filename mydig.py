@@ -51,7 +51,14 @@ def __resolve_dns__(request: Request) -> Tuple[
         if response_message is None:
             break
         # Did not get an answer, so pass the request on to name servers
-        elif len(response_message.answer) == 0 and request.type == "A" or len(response_message.additional) > 0:
+        elif len(response_message.answer) == 0 and (request.type == "A" or len(response_message.additional) > 0):
+            authority_records = __parse_dns_records_from_section__(response_message.authority)
+
+            # In some cases, we get an SOA response for A requests, which cannot be resolved further
+            if True in (authority_record.type == dns.rdatatype.SOA for authority_record in authority_records):
+                final_authority_records += authority_records
+                return final_answer_records, final_authority_records, final_message_size
+
             name_server_ips = __parse_name_server_ips_from_response__(response_message)
         else:
             answer_records = __parse_dns_records_from_section__(response_message.answer)
