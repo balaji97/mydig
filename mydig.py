@@ -51,9 +51,8 @@ def __resolve_dns__(request: Request) -> Tuple[
         if response_message is None:
             break
         # Did not get an answer, so pass the request on to name servers
-        elif len(response_message.answer) == 0:
+        elif len(response_message.answer) == 0 and request.type == "A" or len(response_message.additional) > 0:
             name_server_ips = __parse_name_server_ips_from_response__(response_message)
-        # Got an answer. Resolve further if its a CNAME, else we are done
         else:
             answer_records = __parse_dns_records_from_section__(response_message.answer)
             authority_records = __parse_dns_records_from_section__(response_message.authority) \
