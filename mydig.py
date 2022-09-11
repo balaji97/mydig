@@ -15,22 +15,22 @@ ROOT_SERVER_IPV4S_FILE_NAME = "./root_server_ipv4s.txt"
 def resolve_dns(request: Request) -> Response:
     start_time = time.time()
     answer_records, authority_records, msg_size_rcvd = __resolve_dns__(request)
-
-    if request.type == 'A':
-        while len(answer_records) > 0 and dns.rdatatype.CNAME == answer_records[-1][0]:
-            new_request = Request(answer_records[-1][1], request.type)
-            new_answer_records, new_authority_records, msg_size_rcvd = __resolve_dns__(new_request)
-            answer_records += new_answer_records
-            authority_records = new_authority_records
-
     end_time = time.time()
-    return __build_response__(
-        request, answer_records, authority_records, int((end_time - start_time) * 1000), msg_size_rcvd)
+
+    return Response(
+        name=request.name,
+        type=request.type,
+        answer_records=answer_records,
+        authority_records=authority_records,
+        query_time=int((end_time - start_time) * 1000),
+        when=str(datetime.datetime.now()),
+        msg_size_rcvd=msg_size_rcvd
+    )
 
 
 def __resolve_dns__(request: Request) -> Tuple[
-    List[Tuple[dns.rdatatype.RdataType, str]],
-    List[Tuple[dns.rdatatype.RdataType, str]],
+    List[ResponseRecord],
+    List[ResponseRecord],
     int
 ]:
     request_message = __generate_request_message__(request)
@@ -39,18 +39,42 @@ def __resolve_dns__(request: Request) -> Tuple[
     with open(ROOT_SERVER_IPV4S_FILE_NAME, "r") as root_file:
         root_server_ips = [root_server_ip.rstrip('\n') for root_server_ip in root_file.readlines()]
 
-    response_message = __resolve_dns_from_servers__(request_message, root_server_ips)
+    final_answer_records = []
+    final_authority_records = []
+    final_message_size = 0
+    name_server_ips = root_server_ips
 
-    while response_message and len(response_message.answer) == 0 and len(response_message.additional) != 0:
-        name_server_ips = __parse_name_server_ips_from_response__(response_message)
+    while True:
         response_message = __resolve_dns_from_servers__(request_message, name_server_ips)
 
-    # todo better handling?
-    if response_message is None:
-        return [], [], 0
+        # DNS resolution failed
+        if response_message is None:
+            break
+        # Did not get an answer, so pass the request on to name servers
+        elif len(response_message.answer) == 0:
+            name_server_ips = __parse_name_server_ips_from_response__(response_message)
+        # Got an answer. Resolve further if its a CNAME, else we are done
+        else:
+            answer_records = __parse_dns_records_from_section__(response_message.answer)
+            authority_records = __parse_dns_records_from_section__(response_message.authority) \
+                if len(response_message.authority) > 0 else []
 
-    return __parse_dns_records_from_section__(response_message.answer), __parse_dns_records_from_section__(
-        response_message.authority), sys.getsizeof(response_message)
+            final_answer_records += answer_records
+            final_authority_records += authority_records
+
+            # got a CNAME record
+            if len(answer_records) == 1 and answer_records[0].type == dns.rdatatype.CNAME:
+                request_message = __generate_request_message__(Request(
+                    name=answer_records[0].value,
+                    type="A"
+                ))
+                name_server_ips = root_server_ips
+            # we are done
+            else:
+                return final_answer_records, final_authority_records, final_message_size
+
+    # DNS resolution failed
+    return [], [], 0
 
 
 def __resolve_dns_from_servers__(request_message: Message, dns_server_ips: List[str]) -> Optional[Message]:
@@ -94,43 +118,41 @@ def __generate_request_message__(request: Request) -> Message:
 
 def __parse_name_server_ips_from_response__(response_message: Message) -> List[str]:
     name_server_ips = []
-    for rrset in response_message.additional:
-        if rrset.rdtype == dns.rdatatype.A:
-            name_server_ips += [item.address for item in rrset.items]
+
+    if len(response_message.additional) > 0:
+        for rrset in response_message.additional:
+            if rrset.rdtype == dns.rdatatype.A:
+                name_server_ips += [item.address for item in rrset.items]
+    else:
+        authority_records = __parse_dns_records_from_section__(response_message.authority)
+        for authority_record in authority_records:
+            new_request =  Request(
+                name=authority_record.value,
+                type='A'
+            )
+            answer_records, _, _ = __resolve_dns__(new_request)
+            name_server_ips += [answer_record.value for answer_record in answer_records
+                                if answer_record.type == dns.rdatatype.A]
 
     return name_server_ips
 
 
-def __parse_dns_records_from_section__(section) -> List[Tuple[dns.rdatatype.RdataType, str]]:
+def __parse_dns_records_from_section__(section) -> List[ResponseRecord]:
     results = []
 
     for rrset in section:
         for item in rrset.items:
             if item.rdtype == dns.rdatatype.A:
-                results.append((item.rdtype, item.address))
+                results.append(
+                    ResponseRecord(type=item.rdtype, value=item.address))
             elif item.rdtype == dns.rdatatype.MX:
-                results.append((item.rdtype, item.exchange.to_text()))
+                results.append(
+                    ResponseRecord(type=item.rdtype, value=item.exchange.to_text()))
             elif item.rdtype == dns.rdatatype.CNAME or item.rdtype == dns.rdatatype.NS:
-                results.append((item.rdtype, item.target.to_text()))
+                results.append(
+                    ResponseRecord(type=item.rdtype, value=item.target.to_text()))
             elif item.rdtype == dns.rdatatype.SOA:
-                pass
+                results.append(
+                    ResponseRecord(type=item.rdtype, value=item.mname.to_text() + " " + item.rname.to_text()))
 
     return results
-
-
-def __build_response__(request: Request, answer_records: List[Tuple[dns.rdatatype.RdataType, str]],
-                       authority_records: List[Tuple[dns.rdatatype.RdataType, str]], time_elapsed_ms: int,
-                       msg_size_rcvd: int) -> Response:
-    return Response(
-        name=request.name,
-        type=request.type,
-        answer_records=[
-            ResponseRecord(dns_record[0], dns_record[1]) for dns_record in answer_records
-        ],
-        authority_records=[
-            ResponseRecord(dns_record[0], dns_record[1]) for dns_record in authority_records
-        ],
-        query_time=time_elapsed_ms,
-        when=str(datetime.datetime.now()),
-        msg_size_rcvd=msg_size_rcvd
-    )

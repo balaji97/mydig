@@ -1,4 +1,12 @@
-Question section - Name: cnn.com Type: A
-Answer section - ['RdataType.A 151.101.131.5', 'RdataType.A 151.101.3.5', 'RdataType.A 151.101.67.5', 'RdataType.A 151.101.195.5']
-Authority section - ['RdataType.NS ns-1086.awsdns-07.org.', 'RdataType.NS ns-1630.awsdns-11.co.uk.', 'RdataType.NS ns-47.awsdns-05.com.', 'RdataType.NS ns-576.awsdns-08.net.']
-Metadata - Query time: 111ms When: 2022-09-07 17:50:51.927470Msg size rcvd: 48
+Question section - Name: qq.com Type: A
+Answer section - ['RdataType.A 123.151.137.18', 'RdataType.A 61.129.7.47', 'RdataType.A 183.3.226.35', 'RdataType.A 203.205.254.157']
+Authority section - ['RdataType.NS ns3.qq.com.', 'RdataType.NS ns4.qq.com.', 'RdataType.NS ns1.qq.com.', 'RdataType.NS ns2.qq.com.']
+Metadata - Query time: 295ms When: 2022-09-11 17:35:03.969832 Msg size rcvd: 0
+Question section - Name: qq.com Type: NS
+Answer section - ['RdataType.NS ns2.qq.com.', 'RdataType.NS ns3.qq.com.', 'RdataType.NS ns4.qq.com.', 'RdataType.NS ns1.qq.com.']
+Authority section - ['RdataType.NS ns1.qq.com.', 'RdataType.NS ns2.qq.com.', 'RdataType.NS ns3.qq.com.', 'RdataType.NS ns4.qq.com.']
+Metadata - Query time: 301ms When: 2022-09-11 17:35:04.271464 Msg size rcvd: 0
+Question section - Name: qq.com Type: MX
+Answer section - ['RdataType.MX mx1.qq.com.', 'RdataType.MX mx3.qq.com.', 'RdataType.MX mx2.qq.com.']
+Authority section - ['RdataType.NS ns4.qq.com.', 'RdataType.NS ns1.qq.com.', 'RdataType.NS ns2.qq.com.', 'RdataType.NS ns3.qq.com.']
+Metadata - Query time: 372ms When: 2022-09-11 17:35:04.644057 Msg size rcvd: 0

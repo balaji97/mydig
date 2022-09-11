@@ -1,1 +1,3 @@
-cnn.com A
+qq.com A
+qq.com NS
+qq.com MX
