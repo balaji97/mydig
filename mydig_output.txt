@@ -1,20 +1,20 @@
-Question section - Name: www.microsoftonline.com Type: A
-Answer section - ['RdataType.CNAME microsoftonline.com.']
-Authority section - ['RdataType.SOA ch0mgt0101dc001.prdmgt01.prod.exchangelabs.com. msnhst.microsoft.com.', 'RdataType.SOA ch0mgt0101dc001.prdmgt01.prod.exchangelabs.com. msnhst.microsoft.com.']
-Metadata - Query time: 140ms When: 2022-09-11 18:13:58.142390 Msg size rcvd: 0
-Question section - Name: cnn.com Type: A
-Answer section - ['RdataType.A 151.101.195.5', 'RdataType.A 151.101.131.5', 'RdataType.A 151.101.3.5', 'RdataType.A 151.101.67.5']
-Authority section - ['RdataType.NS ns-1086.awsdns-07.org.', 'RdataType.NS ns-1630.awsdns-11.co.uk.', 'RdataType.NS ns-47.awsdns-05.com.', 'RdataType.NS ns-576.awsdns-08.net.']
-Metadata - Query time: 107ms When: 2022-09-11 18:13:58.249534 Msg size rcvd: 0
-Question section - Name: www.cnn.com Type: A
-Answer section - ['RdataType.CNAME cnn-tls.map.fastly.net.', 'RdataType.A 199.232.39.5']
-Authority section - ['RdataType.NS ns-1086.awsdns-07.org.', 'RdataType.NS ns-1630.awsdns-11.co.uk.', 'RdataType.NS ns-47.awsdns-05.com.', 'RdataType.NS ns-576.awsdns-08.net.', 'RdataType.NS ns1.fastly.net.', 'RdataType.NS ns2.fastly.net.', 'RdataType.NS ns3.fastly.net.', 'RdataType.NS ns4.fastly.net.']
-Metadata - Query time: 317ms When: 2022-09-11 18:13:58.567361 Msg size rcvd: 0
-Question section - Name: www.google.com Type: NS
-Answer section - []
-Authority section - ['RdataType.SOA ns1.google.com. dns-admin.google.com.']
-Metadata - Query time: 98ms When: 2022-09-11 18:13:58.665964 Msg size rcvd: 0
-Question section - Name: www.google.com Type: MX
-Answer section - []
-Authority section - ['RdataType.SOA ns1.google.com. dns-admin.google.com.']
-Metadata - Query time: 102ms When: 2022-09-11 18:13:58.768536 Msg size rcvd: 0
+Question section - Name: google.com Type: A
+Answer section - ['RdataType.A 142.251.32.110']
+Authority section - []
+Metadata - Query time: 56ms When: 2022-09-13 15:58:20.496660 Msg size rcvd: 0
+Question section - Name: youtube.com Type: A
+Answer section - ['RdataType.A 142.250.64.110']
+Authority section - []
+Metadata - Query time: 54ms When: 2022-09-13 15:58:20.551627 Msg size rcvd: 0
+Question section - Name: baidu.com Type: A
+Answer section - ['RdataType.A 39.156.66.10', 'RdataType.A 110.242.68.66']
+Authority section - ['RdataType.NS ns2.baidu.com.', 'RdataType.NS ns4.baidu.com.', 'RdataType.NS ns3.baidu.com.', 'RdataType.NS dns.baidu.com.', 'RdataType.NS ns7.baidu.com.']
+Metadata - Query time: 368ms When: 2022-09-13 15:58:20.920575 Msg size rcvd: 0
+Question section - Name: facebook.com Type: A
+Answer section - ['RdataType.A 31.13.71.36']
+Authority section - []
+Metadata - Query time: 40ms When: 2022-09-13 15:58:20.961329 Msg size rcvd: 0
+Question section - Name: yahoo.com Type: A
+Answer section - ['RdataType.A 74.6.143.25', 'RdataType.A 74.6.231.20', 'RdataType.A 74.6.143.26', 'RdataType.A 74.6.231.21', 'RdataType.A 98.137.11.163', 'RdataType.A 98.137.11.164']
+Authority section - []
+Metadata - Query time: 49ms When: 2022-09-13 15:58:21.010436 Msg size rcvd: 0
