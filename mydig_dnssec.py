@@ -8,6 +8,7 @@ import dns.query
 from dns.message import make_query, Message
 from models import Request, Response, ResponseRecord
 from dnssec_validation import validate_response
+import mydig
 
 DNS_QUERY_TIMEOUT = 1
 ROOT_SERVER_IPV4S_FILE_NAME = "./root_server_ipv4s.txt"
@@ -152,7 +153,7 @@ def __parse_name_server_ips_from_response__(response_message: Message) -> List[s
                 name=authority_record.value,
                 type='A'
             )
-            answer_records, _, _ = __resolve_dns__(new_request)
+            answer_records, _, _ = mydig.__resolve_dns__(new_request)
             name_server_ips += [answer_record.value for answer_record in answer_records
                                 if answer_record.type == dns.rdatatype.A]
 
