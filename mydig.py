@@ -62,6 +62,7 @@ def __resolve_dns__(request: Request) -> Tuple[
 
             name_server_ips = __parse_name_server_ips_from_response__(response_message)
         else:
+            # Got an answer, either in the 'Answer' or 'Authority' section
             answer_records = __parse_dns_records_from_section__(response_message.answer)
             authority_records = __parse_dns_records_from_section__(response_message.authority) \
                 if len(response_message.authority) > 0 else []
@@ -69,7 +70,7 @@ def __resolve_dns__(request: Request) -> Tuple[
             final_answer_records += answer_records
             final_authority_records += authority_records
 
-            # got a CNAME record
+            # got a CNAME record. Resolve as an 'A' request from root
             if len(answer_records) == 1 and answer_records[0].type == dns.rdatatype.CNAME:
                 request_message = __generate_request_message__(Request(
                     name=answer_records[0].value,
@@ -84,6 +85,7 @@ def __resolve_dns__(request: Request) -> Tuple[
     return [], [], 0
 
 
+# Try every server until we get a DNS response
 def __resolve_dns_from_servers__(request_message: Message, dns_server_ips: List[str]) -> Optional[Message]:
     response_message = None
     for dns_server_ip in dns_server_ips:

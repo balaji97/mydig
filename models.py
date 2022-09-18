@@ -3,6 +3,7 @@ from typing import List, Optional
 import dns
 
 
+# Simple input/output wrapper objects shared by mydig and mydig_dnssec libraries
 class Request:
     name: str
     type: str

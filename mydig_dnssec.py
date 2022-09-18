@@ -114,8 +114,8 @@ def __resolve_dns_from_server__(request_message: Message, root_server_name: str)
         print("Error when querying DNS server " + root_server_name + " error message " + e.msg)
         response_message = None
     finally:
+        # Do dnssec validation on the DNS response
         err_message = validate_response(response_message)
-        # todo
         if err_message is not None:
             return None, err_message
         else:

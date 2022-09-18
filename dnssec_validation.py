@@ -19,6 +19,7 @@ def validate_response(response_message: Message) -> Optional[str]:
     ds_records = []
     record_signature_pairs = []
 
+    # Collect all ds and rrsig records for validation
     for section in response_message.sections:
         prev = None
         for rrset in section:
@@ -35,11 +36,13 @@ def validate_response(response_message: Message) -> Optional[str]:
     if len(response_message.answer) == 0 and len(ds_records) == 0:
         return "DNSSEC not supported."
 
+    # Fetch and validate DNSKEY records for the child-zones from the DS records.
     for ds_record in ds_records:
         err_msg = __fetch_and_validate_keys__(ds_record)
         if err_msg is not None:
             return err_msg
 
+    # After fetching keys, validate all of the rrsig records present
     for record, rrsig_record in record_signature_pairs:
         try:
             dns.dnssec.validate(record, rrsig_record, keys)
@@ -50,6 +53,7 @@ def validate_response(response_message: Message) -> Optional[str]:
 
 
 def __fetch_and_validate_keys__(ds_record) -> Optional[str]:
+    # Get the nameservers and corresponding IPs for the child zone of DS record
     result = resolve_dns(Request(
         name=ds_record.name.to_text(),
         type="NS"
@@ -81,6 +85,7 @@ def __fetch_and_validate_keys__(ds_record) -> Optional[str]:
     dnskey_record = None
     rrsig_record = None
 
+    # Get the DNSKEY record, corresponding RRSIG and KSK
     for rrset in key_response.answer:
         if rrset.rdtype == dns.rdatatype.DNSKEY:
             for item in rrset:
@@ -96,7 +101,6 @@ def __fetch_and_validate_keys__(ds_record) -> Optional[str]:
     if None in [ksk_record, dnskey_record, rrsig_record]:
         return "DNSSEC not enabled"
 
-    # todo validate ksk_record using ds_record
     try:
         keys[ds_record.name] = dnskey_record
         dns.dnssec.validate(dnskey_record, rrsig_record, keys)
@@ -108,14 +112,15 @@ def __fetch_and_validate_keys__(ds_record) -> Optional[str]:
         if ds_digest.algorithm != ksk_record.algorithm:
             continue
 
+        # Verify KSK matches the hash present in DS record
         ksk_digest = dns.dnssec.make_ds(ds_record.name, ksk_record, __parse_algorithm__(ds_digest.algorithm))
         if ds_digest.digest == ksk_digest.digest:
             return None
 
+    del keys[ds_record.name]
     return "DS validation for KSK failed"
 
 
-# Only supports RSA
 def __parse_algorithm__(algorithm_enum) -> str:
     algorithms = ['MD5', 'SHA1', 'SHA128', 'SHA256', 'SHA512']
     for alg in algorithms:

@@ -1,3 +1,5 @@
+import sys
+
 import dnssec_validation
 import mydig_dnssec
 from models import Request
@@ -11,15 +13,23 @@ if __name__ == '__main__':
 
     output_lines_dnssec = []
 
-    with open(INPUT_FILENAME_DNSSEC, 'r') as input_file:
-        for query in input_file.readlines():
-            url, type = tuple(query.rstrip('\n').split(" "))
+    if len(sys.argv) > 2:
+        _, name, type = tuple(sys.argv)
+        response_dnssec = mydig_dnssec.resolve_dns(Request(
+            name=name,
+            type=type
+        ))
+        output_lines_dnssec.append(str(response_dnssec))
+    else:
+        with open(INPUT_FILENAME_DNSSEC, 'r') as input_file:
+            for query in input_file.readlines():
+                url, type = tuple(query.rstrip('\n').split(" "))
 
-            response_dnssec = mydig_dnssec.resolve_dns(Request(
-                name=url,
-                type=type
-            ))
-            output_lines_dnssec.append(str(response_dnssec))
+                response_dnssec = mydig_dnssec.resolve_dns(Request(
+                    name=url,
+                    type=type
+                ))
+                output_lines_dnssec.append(str(response_dnssec))
 
     with open(OUTPUT_FILENAME_DNSSEC, 'w') as output_file:
         for output_line in output_lines_dnssec:

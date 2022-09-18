@@ -1,3 +1,5 @@
+import sys
+
 import mydig
 from models import Request
 
@@ -7,16 +9,26 @@ OUTPUT_FILENAME = "./mydig_output.txt"
 if __name__ == '__main__':
     output_lines = []
 
-    with open(INPUT_FILENAME, 'r') as input_file:
-        for query in input_file.readlines():
-            url, type = tuple(query.rstrip('\n').split(" "))
-            response = mydig.resolve_dns(
-                Request(
-                    name=url,
-                    type=type
-                )
+    if len(sys.argv) > 2:
+        _, name, type = tuple(sys.argv)
+        response = mydig.resolve_dns(
+            Request(
+                name=name,
+                type=type
             )
-            output_lines.append(str(response))
+        )
+        output_lines.append(str(response))
+    else:
+        with open(INPUT_FILENAME, 'r') as input_file:
+            for query in input_file.readlines():
+                url, type = tuple(query.rstrip('\n').split(" "))
+                response = mydig.resolve_dns(
+                    Request(
+                        name=url,
+                        type=type
+                    )
+                )
+                output_lines.append(str(response))
 
     with open(OUTPUT_FILENAME, 'w') as output_file:
         for output_line in output_lines:

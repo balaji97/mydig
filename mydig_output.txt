@@ -1,15 +1,15 @@
 Question section - Name: yes.com Type: A
 Answer section - ['RdataType.A 51.136.72.4']
 Authority section - []
-Metadata - Query time: 53ms When: 2022-09-18 13:13:23.647920 Msg size rcvd: 74
+Metadata - Query time: 86ms When: 2022-09-18 13:50:02.870608 Msg size rcvd: 74
 DNSSEC error message: None
 Question section - Name: dnssec-failed.org Type: A
 Answer section - ['RdataType.A 96.99.227.255']
 Authority section - []
-Metadata - Query time: 1417ms When: 2022-09-18 13:13:25.065785 Msg size rcvd: 84
+Metadata - Query time: 472ms When: 2022-09-18 13:50:03.342954 Msg size rcvd: 84
 DNSSEC error message: None
 Question section - Name: verisigninc.com Type: A
 Answer section - ['RdataType.A 209.131.162.45', 'RdataType.A 69.58.187.40']
 Authority section - ['RdataType.NS av2.nstld.com.', 'RdataType.NS av4.nstld.com.', 'RdataType.NS av1.nstld.com.', 'RdataType.NS av3.nstld.com.']
-Metadata - Query time: 86ms When: 2022-09-18 13:13:25.152870 Msg size rcvd: 176
+Metadata - Query time: 71ms When: 2022-09-18 13:50:03.414337 Msg size rcvd: 176
 DNSSEC error message: None
