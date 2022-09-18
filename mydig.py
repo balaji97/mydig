@@ -12,6 +12,7 @@ DNS_QUERY_TIMEOUT = 1
 ROOT_SERVER_IPV4S_FILE_NAME = "./root_server_ipv4s.txt"
 
 
+# Code for part A
 def resolve_dns(request: Request) -> Response:
     start_time = time.time()
     answer_records, authority_records, msg_size_rcvd = __resolve_dns__(request)

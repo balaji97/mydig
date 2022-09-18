@@ -7,6 +7,7 @@ from models import Request
 INPUT_FILENAME_DNSSEC = "./mydig_input_dnssec.txt"
 OUTPUT_FILENAME_DNSSEC = "./mydig_output_dnssec.txt"
 
+# Code for part B
 if __name__ == '__main__':
     # Initialize libraries
     dnssec_validation.__init__()

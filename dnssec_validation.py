@@ -15,6 +15,7 @@ keys = dict()
 DNSKEY_TIMEOUT = 1
 
 
+# Code for part B
 def validate_response(response_message: Message) -> Optional[str]:
     ds_records = []
     record_signature_pairs = []

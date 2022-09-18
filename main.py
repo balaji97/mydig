@@ -6,6 +6,7 @@ from models import Request
 INPUT_FILENAME = "./mydig_input.txt"
 OUTPUT_FILENAME = "./mydig_output.txt"
 
+# Code for Part A
 if __name__ == '__main__':
     output_lines = []
 
