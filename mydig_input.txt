@@ -1,5 +1,1 @@
-google.com A
-youtube.com A
-baidu.com A
-facebook.com A
-yahoo.com A
+yes.com A

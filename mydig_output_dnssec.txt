@@ -1,4 +1,4 @@
 Question section - Name: yes.com Type: A
 Answer section - ['RdataType.A 51.136.72.4']
 Authority section - []
-Metadata - Query time: 41ms When: 2022-09-18 11:48:14.792227 Msg size rcvd: 0
+Metadata - Query time: 4094ms When: 2022-09-18 11:48:18.887220 Msg size rcvd: 0
