@@ -1,4 +1,15 @@
 Question section - Name: yes.com Type: A
 Answer section - ['RdataType.A 51.136.72.4']
 Authority section - []
-Metadata - Query time: 4094ms When: 2022-09-18 11:48:18.887220 Msg size rcvd: 0
+Metadata - Query time: 4546ms When: 2022-09-18 13:10:06.863891 Msg size rcvd: 380
+DNSSEC error message: None
+Question section - Name: dnssec-failed.org Type: A
+Answer section - []
+Authority section - []
+Metadata - Query time: 823ms When: 2022-09-18 13:10:07.687436 Msg size rcvd: 0
+DNSSEC error message: DS validation for KSK failed
+Question section - Name: verisigninc.com Type: A
+Answer section - ['RdataType.A 209.131.162.45', 'RdataType.A 69.58.187.40']
+Authority section - ['RdataType.NS av2.nstld.com.', 'RdataType.NS av4.nstld.com.', 'RdataType.NS av1.nstld.com.', 'RdataType.NS av3.nstld.com.']
+Metadata - Query time: 4500ms When: 2022-09-18 13:10:12.187944 Msg size rcvd: 537
+DNSSEC error message: None

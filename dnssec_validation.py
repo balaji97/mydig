@@ -44,7 +44,7 @@ def validate_response(response_message: Message) -> Optional[str]:
         try:
             dns.dnssec.validate(record, rrsig_record, keys)
         except:
-            return "DNSSEC verification failed"
+            return "DNSSEC RRSIG record verification failed"
 
     return None
 
@@ -112,7 +112,7 @@ def __fetch_and_validate_keys__(ds_record) -> Optional[str]:
         if ds_digest.digest == ksk_digest.digest:
             return None
 
-    return "DS validation for KSK failed for zone"
+    return "DS validation for KSK failed"
 
 
 # Only supports RSA

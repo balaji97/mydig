@@ -46,6 +46,7 @@ def __resolve_dns__(request: Request) -> Tuple[
 
     while True:
         response_message = __resolve_dns_from_servers__(request_message, name_server_ips)
+        final_message_size = sys.getsizeof(response_message.to_wire()) if response_message is not None else 0
 
         # DNS resolution failed
         if response_message is None:
